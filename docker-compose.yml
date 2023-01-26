@@ -15,16 +15,16 @@ services:
     #   - "3000:3000"
     environment:
       - PORT=3000
-      - MONGO_USER=mayur
-      - MONGO_PASSWORD=mayur
+      - MONGO_USER=${MONGO_USER}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
       - SESSION_SECRET=secret
     depends_on:
       - mongodb
   mongodb:
     image: mongo
     environment:
-      MONGO_INITDB_ROOT_USERNAME: mayur
-      MONGO_INITDB_ROOT_PASSWORD: mayur
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
       - mongo-db:/data/db
   redis:
