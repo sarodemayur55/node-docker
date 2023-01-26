@@ -1,0 +1,84 @@
+const Post=require("../models/postmodel");
+exports.getAllPosts=async(req,res,next)=>{
+    console.log("Hello Mini...");
+    try{
+        const posts=await Post.find();
+        res.json(
+            {
+                results:posts.length,
+                data:posts
+            }
+        )
+    }
+    catch(e){
+        res.status(400).json({
+            status:"failed"
+        })
+    }
+};
+exports.getOnePost=async(req,res,next)=>{
+    try{
+        const posts=await Post.findById(req.params.id);
+        res.json(
+            {
+                results:posts.length,
+                data:posts
+            }
+        )
+    }
+    catch(e){
+        res.status(400).json({
+            status:"failed"
+        })
+    }
+};
+exports.createPost=async(req,res,next)=>{
+    try{
+        const posts=await Post.create(req.body);
+        console.log(req.body);
+        res.json(
+            {
+                results:posts.length,
+                data:posts
+            }
+        )
+    }
+    catch(e){
+        console.log(req.body);
+        res.status(400).json({
+            status:"failed",
+            error:e
+        })
+    }
+}
+exports.updatePost=async(req,res,next)=>{
+    try{
+        const posts=await Post.findByIdAndUpdate(req.params.id,req.body);
+        res.json(
+            {
+                results:posts.length,
+                data:posts
+            }
+        )
+    }
+    catch(e){
+        res.status(400).json({
+            status:"failed"
+        })
+    }
+};
+exports.deletePost=async(req,res,next)=>{
+    try{
+        const posts=await Post.findByIdAndDelete(req.params.id);
+        res.json(
+            {
+                status:"success"
+            }
+        )
+    }
+    catch(e){
+        res.status(400).json({
+            status:"failed"
+        })
+    }
+};
